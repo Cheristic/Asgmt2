@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>Painting</title>
+        <style>
+            body {text-align:left;}
+            h3 {
+                margin: 0;
+                padding: 0;
+                margin-right: 270px;
+                text-align: center;
+            }
+        </style>
+    </head>
+
+    <body onload="main()">
+        <canvas id="webgl" width="400" height="400">
+            Please use a browser that supports "canvas"
+        </canvas>
+        <script src="lib/webgl-utils.js"></script>
+        <script src="lib/webgl-debug.js"></script>
+        <script src="lib/cuon-utils.js"></script>
+        <script src="lib/cuon-matrix.js"></script>
+        <script src="Shapes/Shape.js"></script>
+        <script src="Shapes/Triangle.js"></script>
+        <script src="Shapes/Circle.js"></script>
+        <script src="Shapes/Cube.js"></script>
+        <script src="Shapes/Cylinder.js"></script>
+        <script src="asg2.js"></script>
+
+        <h3>Introducing... <br>
+            The Scariest Creatue Imaginable</h1>
+        <br>
+        <input type="button" value="Toggle Animation" id="animationBool">
+        <br><br> Prepare your creature
+        <br>
+        Camera Angle <input type="range" min="0" max="359" value="90" class="slider" id="angleSlide">
+        <br>
+        Leg Evilness Level<input type="range" min="-125" max="65" value="0" class="slider" id="3rdlimb">
+        <br>
+        Feet Evilness Level<input type="range" min="-10" max="35" value="0" class="slider" id="2ndlimb">
+        <br>
+        "Boo" Speed <input type="range" min="1" max="15" value="8" class="slider" id="booSpeed">
+        <br><br>
+        Shift + Click to change predator vs prey mode -> keep animation on!<br>
+        Chase your prey <input type="range" min="-90" max="90" value="0" class="slider" id="1stlimb">
+
+        <br>
+        <span id="fps">--</span> FPS
+        
+        
+    </body>
+</html>
