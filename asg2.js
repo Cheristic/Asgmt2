@@ -134,6 +134,7 @@ function convertClientCoordinatesToGL(ev) {
   y = (canvas.height/2 - (y - rect.top))/(canvas.height/2);
 
   return [x,y];
+  
 }
 
 function createScenePlatform() {
