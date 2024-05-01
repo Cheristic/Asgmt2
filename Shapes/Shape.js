@@ -85,34 +85,57 @@ class Shape3D {
 }
 
 class Shape3DSurface {
-    constructor(position, color, vertices) {
+    constructor(position, color, vertices, uv = null, textureNum = -2) {
       this.position = position;
       this.color = color;
 
-      this.buffer = null;
+      this.vertexBuffer = null;
+      this.uvBuffer = null;
       this.vertices = vertices;
+      this.uv = uv;
+      this.textureNum = textureNum;
     }
   
     render() {
-      var rgba = this.color;
-    
+      var rgba = this.color;  
       // Pass the color of a point to u_FragColor variable
       gl.uniform4f(u_FragColor, rgba[0], rgba[1], rgba[2], rgba[3]);
+      
+      gl.uniform1i(u_textureSelector, this.textureNum);
   
-      if (this.buffer == null) {
-        this.buffer = gl.createBuffer();
-        if (!this.buffer) {
-            console.log("Failed to create the buffer object");
+      // set up vertex buffer
+      if (this.vertexBuffer == null) {
+        this.vertexBuffer = gl.createBuffer();
+        if (!this.vertexBuffer) {
+            console.log("Failed to create the vertex buffer object");
             return -1;
         }
       } 
-          
-      gl.bindBuffer(gl.ARRAY_BUFFER, this.buffer);
+    
+      gl.bindBuffer(gl.ARRAY_BUFFER, this.vertexBuffer);
       gl.bufferData(gl.ARRAY_BUFFER, this.vertices, gl.DYNAMIC_DRAW);
 
       gl.vertexAttribPointer(a_Position, 3, gl.FLOAT, false, 0, 0);
       gl.enableVertexAttribArray(a_Position);
 
+      // set up uv buffer
+      if (this.uv != null) {
+        if (this.uvBuffer == null) {
+          this.uvBuffer = gl.createBuffer();
+          if (!this.uvBuffer) {
+              console.log("Failed to create the uv buffer object");
+              return -1;
+          }
+        } 
+  
+        gl.bindBuffer(gl.ARRAY_BUFFER, this.uvBuffer);
+        gl.bufferData(gl.ARRAY_BUFFER, this.uv, gl.DYNAMIC_DRAW);
+  
+        gl.vertexAttribPointer(a_TexCoord, 2, gl.FLOAT, false, 0, 0);
+        gl.enableVertexAttribArray(a_TexCoord);
+      }
+
+      // now draw the shape
       gl.drawArrays(gl.TRIANGLE_STRIP, 0, this.vertices.length / 3);  
   
     }
